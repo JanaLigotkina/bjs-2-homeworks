@@ -49,5 +49,3 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
   return totalAmount;
 }
-
-console.log(calculateTotalMortgage(10, 12000, 200000));
