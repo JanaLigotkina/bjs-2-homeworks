@@ -6,8 +6,7 @@ function solveEquation(a, b, c) {
   if (discriminant === 0) {
     arr.push(-b / 2 * a);
   } else if (discriminant > 0) {
-    arr.push((-b - Math.sqrt(discriminant))/ 2 * a);
-    arr.push((-b + Math.sqrt(discriminant))/ 2 * a);
+    arr.push((-b + Math.sqrt(discriminant)) / 2 * a, (-b - Math.sqrt(discriminant)) / 2 * a);
   } else {
     arr = [];
   }
@@ -17,23 +16,25 @@ function solveEquation(a, b, c) {
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
 
-  // Проверка на число
-  let arr = [percent, contribution, amount];
-  let isError = false;
+  // Проверка на числа
 
-  for (let i = 0; i < arr.length; i++) {
-    if (typeof arr[i] === 'number') {
-      continue;
-    } else if (typeof arr[i] === 'string') {
-      arr[i] = Number(arr[i]);
-    } else {
-      isError = true;
-      alert(`Параметр ${arr[i]} содержит неправильное значение ${typeof arr[i]}`);
-    }
+  if (Number.isNaN(parseInt(percent))) {
+    return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
   }
 
-  if (isError) return;
+  if (Number.isNaN(parseInt(contribution))) {
+    return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`;
+  }
 
+  if (Number.isNaN(parseInt(amount))) {
+    return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
+  }
+
+  let arr = [percent, contribution, amount];
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = parseInt(arr[i]);
+  }
 
   // Начинаем подсчеты для формулы
   let totalAmount = 0,
@@ -45,7 +46,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let mouthAmount = Math.abs((todayDate.getMonth() - endDate.getMonth() + (12 * (todayDate.getFullYear() - endDate.getFullYear()))));
 
   mouthPay = (amount - contribution) * (mouthRate  + (mouthRate / (Math.pow(1 + (mouthRate), mouthAmount) - 1)));
-  totalAmount = (mouthPay * mouthAmount).toFixed(2);
+  totalAmount = Number((mouthPay * mouthAmount).toFixed(2));
 
   return totalAmount;
 }
