@@ -6,8 +6,13 @@ function getArrayParams(arr) {
       avg = 0;
 
   for (let i in arr) {
-    if (min > arr[i]) min = arr[i];
-    if (max < arr[i]) max = arr[i];
+    if (min > arr[i]) {
+      min = arr[i];
+    }
+
+    if (max < arr[i]) {
+      max = arr[i];
+    }
     sum += arr[i];
   }
 
@@ -38,7 +43,9 @@ function makeWork(arrOfArr, func) {
   let arrSum = func(arrOfArr);
 
   for (let i in arrSum) {
-    if (max < arrSum[i]) max = arrSum[i];
+    if (max < arrSum[i]) {
+      max = arrSum[i];
+    }
   }
 
   return max;
@@ -47,14 +54,34 @@ function makeWork(arrOfArr, func) {
 
 // Задание 3
 function worker2(arr) {
-  let max = arr[0],
-      min = arr[0];
+//   let max = arr[0],
+//       min = arr[0];
 
-  arr.flat(); // делает из массива массивов один массив
+//   for (let i in arr) {
+//     if (max < arr[i]) {
+//       max = arr[i];
+//     }
+
+//     if (min > arr[i]) {
+//       min = arr[i];
+//     }
+//   }
+
+//   return Math.abs(max - min);
+
+let arr = [];
+
   for (let i in arr) {
-    if (max < arr[i]) max = arr[i];
-    if (min > arr[i]) min = arr[i];
+
+    for (let j in arr[i]) {
+      let max = arr[0][0],
+          min = arr[0][0];
+      sumTemporary += arr[i][j];
+    }
+    sum.push(sumTemporary);
   }
 
-  return Math.abs(max - min);
+  return sum;
+
+
 }
