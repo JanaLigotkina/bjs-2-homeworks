@@ -1,10 +1,11 @@
 // Задача 1
 function parseCount(num) {
-  if (isNaN(Number.parseInt(num))) {
+  let parseNum = Number.parseInt(num);
+  if (isNaN(parseNum)) {
     throw new Error("Невалидное значение");
   }
 
-  return Number.parseInt(num);
+  return parseNum;
 }
 
 function validateCount(num) {
@@ -18,25 +19,29 @@ function validateCount(num) {
 // Задача 2
 class Triangle {
 
+  perimeter = null;
+  square = null;
+
   constructor(x, y, z) {
     this.x = x;
     this.y = y;
     this.z = z;
 
-    if (this.x + this.y < this.z || this.y + this.z < this.x || this.x + this.z < this.y) {
+    if (x + y < z || y + z < x || x + z < y) {
       throw new Error("Треугольник с такими сторонами не существует");
     }
 
-    this.perimetr = null;
-    this.square = null;
+    this.perimeter = this.getPerimeter();
+    this.square = this.getArea();
   }
 
   getPerimeter() {
-    return this.perimetr = this.x + this.y + this.z;
+    return this.x + this.y + this.z;
   }
 
   getArea() {
-    return this.square = Number(Math.sqrt(0.5 * this.perimetr * (0.5 * this.perimetr - this.x) * (0.5 * this.perimetr - this.y) * (0.5 * this.perimetr - this.z)).toFixed(3));
+    let halfPerimeter = 0.5 * this.perimeter;
+    return Number(Math.sqrt(halfPerimeter * (halfPerimeter - this.x) * (halfPerimeter - this.y) * (halfPerimeter - this.z)).toFixed(3));
   }
 }
 
